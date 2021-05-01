@@ -1,0 +1,36 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}  Contact 
+{% endblock %}
+{% block body %} <h1> Contact </h1>
+<div class='table-responsive'>
+    <table class='table'>
+        <thead><tr><th>Reseau </th><th>Mail </th><th>Tel </th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for  contact  in  contacts  %}
+            <tr>
+<td>{{contact.reseau|json_encode}}</td>
+<td>{{contact.mail}}</td>
+<td>{{contact.tel}}</td><td>
+                    <form method='post' action="{{ path('contact_delete', {'id':  contact.id }) }}" 
+                    onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  contact . id ) }}">
+                        <a class='btn btn-xs btn-primary' data-toggle='tooltip' title='Voir' href="{{ path('contact_show', {'id':  contact.id }) }}"><i class="icone fas fa-glasses "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Editer' href="{{ path('contact_edit', {'id':  contact.id }) }}"><i class="icone fas fa-pen "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('contact_copy', {'id':  contact.id }) }}"><i class="icone fas fa-copy "></i></a>
+
+                        <button class="btn btn-xs btn-warning "><i class="icone fas fa-trash "></i></button>
+                    </form>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan=4>Aucun enregistrement</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div><a href="{{ path('contact_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+{% endblock %}

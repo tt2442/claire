@@ -1,0 +1,37 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}  Accueil 
+{% endblock %}
+{% block body %} <h1> Accueil </h1>
+<div class='table-responsive'>
+    <table class='table'>
+        <thead><tr><th>Titre </th><th>Description </th><th>Image </th><th>Lien </th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for  accueil  in  accueils  %}
+            <tr>
+<td>{{accueil.titre}}</td>
+<td>{{accueil.description}}</td>
+<td>{{accueil.image}}</td>
+<td>{{accueil.lien}}</td><td>
+                    <form method='post' action="{{ path('accueil_delete', {'id':  accueil.id }) }}" 
+                    onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  accueil . id ) }}">
+                        <a class='btn btn-xs btn-primary' data-toggle='tooltip' title='Voir' href="{{ path('accueil_show', {'id':  accueil.id }) }}"><i class="icone fas fa-glasses "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Editer' href="{{ path('accueil_edit', {'id':  accueil.id }) }}"><i class="icone fas fa-pen "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('accueil_copy', {'id':  accueil.id }) }}"><i class="icone fas fa-copy "></i></a>
+
+                        <button class="btn btn-xs btn-warning "><i class="icone fas fa-trash "></i></button>
+                    </form>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan=6>Aucun enregistrement</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div><a href="{{ path('accueil_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+{% endblock %}

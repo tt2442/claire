@@ -1,0 +1,38 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}  Collegue 
+{% endblock %}
+{% block body %} <h1> Collegue </h1>
+<div class='table-responsive'>
+    <table class='table'>
+        <thead><tr><th>Titre </th><th>Description </th><th>Lien </th><th>Fichier </th><th>Image </th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for  collegue  in  collegues  %}
+            <tr>
+<td>{{collegue.titre}}</td>
+<td>{{collegue.description}}</td>
+<td>{{collegue.lien}}</td>
+<td>{{collegue.fichier}}</td>
+<td>{{collegue.image}}</td><td>
+                    <form method='post' action="{{ path('collegue_delete', {'id':  collegue.id }) }}" 
+                    onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  collegue . id ) }}">
+                        <a class='btn btn-xs btn-primary' data-toggle='tooltip' title='Voir' href="{{ path('collegue_show', {'id':  collegue.id }) }}"><i class="icone fas fa-glasses "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Editer' href="{{ path('collegue_edit', {'id':  collegue.id }) }}"><i class="icone fas fa-pen "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('collegue_copy', {'id':  collegue.id }) }}"><i class="icone fas fa-copy "></i></a>
+
+                        <button class="btn btn-xs btn-warning "><i class="icone fas fa-trash "></i></button>
+                    </form>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan=7>Aucun enregistrement</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div><a href="{{ path('collegue_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+{% endblock %}

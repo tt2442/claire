@@ -1,0 +1,32 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Voir Categorie 
+{% endblock %}
+{% block body %} <h1>Voir Categorie </h1>
+<div class='table-responsive'>
+    <table class='table'>
+<td>{{categorie.articles|json_encode}}</td>
+</tr>
+<td>{{categorie.realisations|json_encode}}</td>
+</tr>
+<tr>
+<th>Titre</th>
+<td>{{categorie.titre}}</td>
+</tr>
+<tr>
+<th>Couleur</th>
+<td>{{categorie.couleur}}</td>
+</tr><td>
+    <form method='post' action="{{ path('categorie_delete', {'id':  categorie.id }) }}" onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  categorie . id ) }}">
+        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('categorie_copy', {'id':  categorie.id }) }}">Dupliquer</a>
+        <a href='{{ path('categorie_index') }}'><button class='btn btn-secondary mr-2' type='button'>Revenir à la liste</button></a>
+        <button class="btn btn-xs btn-warning ">Supprimer</button>
+    </form>
+    </tr>
+    </tbody>
+    </table>
+    </div><a href="{{ path('categorie_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+
+{{ include('categorie/_delete_form.html.twig') }}
+    {% endblock %}

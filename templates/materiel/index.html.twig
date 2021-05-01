@@ -1,0 +1,41 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}  Materiel 
+{% endblock %}
+{% block body %} <h1> Materiel </h1>
+<div class='table-responsive'>
+    <table class='table'>
+        <thead><tr><th>Evenements </th><th>Realisations </th><th>Nom </th><th>Description </th><th>Reference </th><th>Prix </th><th>Fichier </th><th>Lien </th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for  materiel  in  materiels  %}
+            <tr>
+<td>{{materiel.evenements|json_encode}}</td>
+<td>{{materiel.realisations|json_encode}}</td>
+<td>{{materiel.nom}}</td>
+<td>{{materiel.description}}</td>
+<td>{{materiel.reference}}</td>
+<td>{{materiel.prix}}</td>
+<td>{{materiel.fichier}}</td>
+<td>{{materiel.lien}}</td><td>
+                    <form method='post' action="{{ path('materiel_delete', {'id':  materiel.id }) }}" 
+                    onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  materiel . id ) }}">
+                        <a class='btn btn-xs btn-primary' data-toggle='tooltip' title='Voir' href="{{ path('materiel_show', {'id':  materiel.id }) }}"><i class="icone fas fa-glasses "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Editer' href="{{ path('materiel_edit', {'id':  materiel.id }) }}"><i class="icone fas fa-pen "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('materiel_copy', {'id':  materiel.id }) }}"><i class="icone fas fa-copy "></i></a>
+
+                        <button class="btn btn-xs btn-warning "><i class="icone fas fa-trash "></i></button>
+                    </form>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan=8>Aucun enregistrement</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div><a href="{{ path('materiel_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+{% endblock %}

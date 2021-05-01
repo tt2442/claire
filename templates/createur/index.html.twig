@@ -1,0 +1,36 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}  Createur 
+{% endblock %}
+{% block body %} <h1> Createur </h1>
+<div class='table-responsive'>
+    <table class='table'>
+        <thead><tr><th>Nom </th><th>Prenom </th><th>Site </th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for  createur  in  createurs  %}
+            <tr>
+<td>{{createur.nom}}</td>
+<td>{{createur.prenom}}</td>
+<td>{{createur.site}}</td><td>
+                    <form method='post' action="{{ path('createur_delete', {'id':  createur.id }) }}" 
+                    onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  createur . id ) }}">
+                        <a class='btn btn-xs btn-primary' data-toggle='tooltip' title='Voir' href="{{ path('createur_show', {'id':  createur.id }) }}"><i class="icone fas fa-glasses "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Editer' href="{{ path('createur_edit', {'id':  createur.id }) }}"><i class="icone fas fa-pen "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('createur_copy', {'id':  createur.id }) }}"><i class="icone fas fa-copy "></i></a>
+
+                        <button class="btn btn-xs btn-warning "><i class="icone fas fa-trash "></i></button>
+                    </form>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan=5>Aucun enregistrement</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div><a href="{{ path('createur_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}  Client 
+{% endblock %}
+{% block body %} <h1> Client </h1>
+<div class='table-responsive'>
+    <table class='table'>
+        <thead><tr><th>Newsletters </th><th>Mail </th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for  client  in  clients  %}
+            <tr>
+<td>{{client.newsletters|json_encode}}</td>
+<td>{{client.mail}}</td><td>
+                    <form method='post' action="{{ path('client_delete', {'id':  client.id }) }}" 
+                    onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  client . id ) }}">
+                        <a class='btn btn-xs btn-primary' data-toggle='tooltip' title='Voir' href="{{ path('client_show', {'id':  client.id }) }}"><i class="icone fas fa-glasses "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Editer' href="{{ path('client_edit', {'id':  client.id }) }}"><i class="icone fas fa-pen "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('client_copy', {'id':  client.id }) }}"><i class="icone fas fa-copy "></i></a>
+
+                        <button class="btn btn-xs btn-warning "><i class="icone fas fa-trash "></i></button>
+                    </form>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan=3>Aucun enregistrement</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div><a href="{{ path('client_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+{% endblock %}

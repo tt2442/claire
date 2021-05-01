@@ -1,0 +1,39 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}  Newsletter 
+{% endblock %}
+{% block body %} <h1> Newsletter </h1>
+<div class='table-responsive'>
+    <table class='table'>
+        <thead><tr><th>Destinataires </th><th>Object </th><th>Description </th><th>Image </th><th>Lien </th><th>Dateprog </th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for  newsletter  in  newsletters  %}
+            <tr>
+<td>{{newsletter.destinataires|json_encode}}</td>
+<td>{{newsletter.object}}</td>
+<td>{{newsletter.description}}</td>
+<td>{{newsletter.image}}</td>
+<td>{{newsletter.lien}}</td>
+<td>{{newsletter.dateprog ? newsletter.dateprog|date('Y-m-d H:i:s') : ''}}</td><td>
+                    <form method='post' action="{{ path('newsletter_delete', {'id':  newsletter.id }) }}" 
+                    onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  newsletter . id ) }}">
+                        <a class='btn btn-xs btn-primary' data-toggle='tooltip' title='Voir' href="{{ path('newsletter_show', {'id':  newsletter.id }) }}"><i class="icone fas fa-glasses "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Editer' href="{{ path('newsletter_edit', {'id':  newsletter.id }) }}"><i class="icone fas fa-pen "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('newsletter_copy', {'id':  newsletter.id }) }}"><i class="icone fas fa-copy "></i></a>
+
+                        <button class="btn btn-xs btn-warning "><i class="icone fas fa-trash "></i></button>
+                    </form>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan=7>Aucun enregistrement</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div><a href="{{ path('newsletter_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+{% endblock %}

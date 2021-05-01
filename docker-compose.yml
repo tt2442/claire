@@ -1,0 +1,12 @@
+version: '3'
+services:
+  lescreadeclaire:
+    image: cadotinfo/symfony5
+    container_name: claire
+    volumes:
+      - .:/app
+    restart: always
+    labels:
+      - "traefik.enable=true"
+    ports:
+      - 80

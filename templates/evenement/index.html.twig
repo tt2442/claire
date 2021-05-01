@@ -1,0 +1,40 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}  Evenement 
+{% endblock %}
+{% block body %} <h1> Evenement </h1>
+<div class='table-responsive'>
+    <table class='table'>
+        <thead><tr><th>Materiels </th><th>Titre </th><th>Date </th><th>Description </th><th>Multimedia </th><th>Lien </th><th>Type </th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for  evenement  in  evenements  %}
+            <tr>
+<td>{{evenement.materiels|json_encode}}</td>
+<td>{{evenement.titre}}</td>
+<td>{{evenement.date ? evenement.date|date('Y-m-d H:i:s') : ''}}</td>
+<td>{{evenement.description}}</td>
+<td>{{evenement.multimedia}}</td>
+<td>{{evenement.lien}}</td>
+<td>{{evenement.type}}</td><td>
+                    <form method='post' action="{{ path('evenement_delete', {'id':  evenement.id }) }}" 
+                    onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  evenement . id ) }}">
+                        <a class='btn btn-xs btn-primary' data-toggle='tooltip' title='Voir' href="{{ path('evenement_show', {'id':  evenement.id }) }}"><i class="icone fas fa-glasses "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Editer' href="{{ path('evenement_edit', {'id':  evenement.id }) }}"><i class="icone fas fa-pen "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('evenement_copy', {'id':  evenement.id }) }}"><i class="icone fas fa-copy "></i></a>
+
+                        <button class="btn btn-xs btn-warning "><i class="icone fas fa-trash "></i></button>
+                    </form>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan=8>Aucun enregistrement</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div><a href="{{ path('evenement_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+{% endblock %}

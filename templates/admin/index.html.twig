@@ -1,0 +1,70 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Partie administration{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
+
+    .example-wrapper code {
+        background: #F5F5F5;
+        padding: 2px 6px;
+    }
+</style>
+
+<div class="example-wrapper">
+    <h1>Partie administration</h1>
+
+    Ci-dessous les différentes parties du site :
+    <ul>
+        <li>
+            <a class="nav-link" href="{{ path('accueil_index') }}">Accueil</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('article_index') }}">Articles</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('catalogue_index') }}">Catalogues</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('categorie_index') }}">Categories</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('client_index') }}">Clients</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('collegue_index') }}">Collegues</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('contact_index') }}">Contact</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('createur_index') }}">Createur</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('evenement_index') }}">Événements</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('materiel_index') }}">Materiels</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('newsletter_index') }}">Newsletter</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('realisation_index') }}">Réalisations</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('reseausocial_index') }}">Réseaux sociaux</a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{ path('user_index') }}">Utilisateur</a>
+        </li>
+
+    </ul>
+</div>
+{% endblock %}

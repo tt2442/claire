@@ -1,0 +1,18 @@
+{% extends 'admin.html.twig' %}{% set action=path(app.request.attributes.get('_route'),
+        app.request.attributes.get('_route_params'))|split('/')|last
+         %}
+
+{% block title %}{% if action=='new'  %}Création {% else %}Duplication {% endif %} Article{% endblock %}
+
+{% block body %}
+
+
+<h1>{% if action=='new'  %}Ajouter {% else %}Dupliquer {% endif %} Article</h1>
+
+{{ form_start(form) }}
+
+{{ form_widget(form) }}<button class="btn btn-primary" type="submit">Créer</button>
+
+<a href="{{ path('article_index') }}"><button class="btn btn-secondary" type="button">Revenir à la liste</button></a>
+{{ form_end(form) }}
+{% endblock %}

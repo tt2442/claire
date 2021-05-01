@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}{% block title %}Edition Createur{% endblock %}
+
+{% block body %}
+<h1>Editer Createur </h1>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<button class="btn btn-primary mr-2" type="submit">Mettre à jour</button>
+<a href="{{ path('createur_index') }}" class="btn btn-secondary mr-2" type="button">Revenir à la liste</button></a>
+
+{{ form_end(form) }}
+{{ include('createur/_delete_form.html.twig') }}
+{% endblock %}

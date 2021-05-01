@@ -1,0 +1,41 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}  Realisation 
+{% endblock %}
+{% block body %} <h1> Realisation </h1>
+<div class='table-responsive'>
+    <table class='table'>
+        <thead><tr><th>Categorie </th><th>Materiels </th><th>Titre </th><th>Description </th><th>Multimedia </th><th>Etat </th><th>Lien </th><th>Date </th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for  realisation  in  realisations  %}
+            <tr>
+<td>{{realisation.categorie|json_encode}}</td>
+<td>{{realisation.materiels|json_encode}}</td>
+<td>{{realisation.titre}}</td>
+<td>{{realisation.description}}</td>
+<td>{{realisation.multimedia}}</td>
+<td>{{realisation.etat ? 'Yes' : 'No'}}</td>
+<td>{{realisation.lien}}</td>
+<td>{{realisation.date ? realisation.date|date('Y-m-d H:i:s') : ''}}</td><td>
+                    <form method='post' action="{{ path('realisation_delete', {'id':  realisation.id }) }}" 
+                    onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  realisation . id ) }}">
+                        <a class='btn btn-xs btn-primary' data-toggle='tooltip' title='Voir' href="{{ path('realisation_show', {'id':  realisation.id }) }}"><i class="icone fas fa-glasses "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Editer' href="{{ path('realisation_edit', {'id':  realisation.id }) }}"><i class="icone fas fa-pen "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('realisation_copy', {'id':  realisation.id }) }}"><i class="icone fas fa-copy "></i></a>
+
+                        <button class="btn btn-xs btn-warning "><i class="icone fas fa-trash "></i></button>
+                    </form>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan=8>Aucun enregistrement</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div><a href="{{ path('realisation_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+{% endblock %}

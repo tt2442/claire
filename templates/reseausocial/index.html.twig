@@ -1,0 +1,37 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}  Reseausocial 
+{% endblock %}
+{% block body %} <h1> Reseausocial </h1>
+<div class='table-responsive'>
+    <table class='table'>
+        <thead><tr><th>Contact </th><th>Nom </th><th>Lien </th><th>Pseudo </th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for  reseausocial  in  reseausocials  %}
+            <tr>
+<td>{{reseausocial.contact|json_encode}}</td>
+<td>{{reseausocial.nom}}</td>
+<td>{{reseausocial.lien}}</td>
+<td>{{reseausocial.pseudo}}</td><td>
+                    <form method='post' action="{{ path('reseausocial_delete', {'id':  reseausocial.id }) }}" 
+                    onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  reseausocial . id ) }}">
+                        <a class='btn btn-xs btn-primary' data-toggle='tooltip' title='Voir' href="{{ path('reseausocial_show', {'id':  reseausocial.id }) }}"><i class="icone fas fa-glasses "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Editer' href="{{ path('reseausocial_edit', {'id':  reseausocial.id }) }}"><i class="icone fas fa-pen "></i></a>
+                        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('reseausocial_copy', {'id':  reseausocial.id }) }}"><i class="icone fas fa-copy "></i></a>
+
+                        <button class="btn btn-xs btn-warning "><i class="icone fas fa-trash "></i></button>
+                    </form>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan=5>Aucun enregistrement</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div><a href="{{ path('reseausocial_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+{% endblock %}

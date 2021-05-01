@@ -1,0 +1,32 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Voir Createur 
+{% endblock %}
+{% block body %} <h1>Voir Createur </h1>
+<div class='table-responsive'>
+    <table class='table'>
+<tr>
+<th>Nom</th>
+<td>{{createur.nom}}</td>
+</tr>
+<tr>
+<th>Prenom</th>
+<td>{{createur.prenom}}</td>
+</tr>
+<tr>
+<th>Site</th>
+<td>{{createur.site}}</td>
+</tr><td>
+    <form method='post' action="{{ path('createur_delete', {'id':  createur.id }) }}" onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  createur . id ) }}">
+        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('createur_copy', {'id':  createur.id }) }}">Dupliquer</a>
+        <a href='{{ path('createur_index') }}'><button class='btn btn-secondary mr-2' type='button'>Revenir à la liste</button></a>
+        <button class="btn btn-xs btn-warning ">Supprimer</button>
+    </form>
+    </tr>
+    </tbody>
+    </table>
+    </div><a href="{{ path('createur_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+
+{{ include('createur/_delete_form.html.twig') }}
+    {% endblock %}

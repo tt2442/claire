@@ -1,0 +1,48 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Voir Materiel 
+{% endblock %}
+{% block body %} <h1>Voir Materiel </h1>
+<div class='table-responsive'>
+    <table class='table'>
+<td>{{materiel.evenements|json_encode}}</td>
+</tr>
+<td>{{materiel.realisations|json_encode}}</td>
+</tr>
+<tr>
+<th>Nom</th>
+<td>{{materiel.nom}}</td>
+</tr>
+<tr>
+<th>Description</th>
+<td>{{materiel.description}}</td>
+</tr>
+<tr>
+<th>Reference</th>
+<td>{{materiel.reference}}</td>
+</tr>
+<tr>
+<th>Prix</th>
+<td>{{materiel.prix}}</td>
+</tr>
+<tr>
+<th>Fichier</th>
+<td>{{materiel.fichier}}</td>
+</tr>
+<tr>
+<th>Lien</th>
+<td>{{materiel.lien}}</td>
+</tr><td>
+    <form method='post' action="{{ path('materiel_delete', {'id':  materiel.id }) }}" onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  materiel . id ) }}">
+        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('materiel_copy', {'id':  materiel.id }) }}">Dupliquer</a>
+        <a href='{{ path('materiel_index') }}'><button class='btn btn-secondary mr-2' type='button'>Revenir à la liste</button></a>
+        <button class="btn btn-xs btn-warning ">Supprimer</button>
+    </form>
+    </tr>
+    </tbody>
+    </table>
+    </div><a href="{{ path('materiel_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+
+{{ include('materiel/_delete_form.html.twig') }}
+    {% endblock %}

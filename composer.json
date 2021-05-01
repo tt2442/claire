@@ -12,6 +12,8 @@
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.8",
+        "friendsofsymfony/ckeditor-bundle": "^2.3",
+        "myclabs/deep-copy": "^1.10",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "5.2.*",
@@ -38,8 +40,10 @@
         "symfony/twig-bundle": "^5.2",
         "symfony/validator": "5.2.*",
         "symfony/web-link": "5.2.*",
+        "symfony/webpack-encore-bundle": "^1.11",
         "symfony/yaml": "5.2.*",
         "twig/extra-bundle": "^2.12|^3.0",
+        "twig/string-extra": "^3.3",
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
@@ -79,10 +83,17 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
+        "patch": ["cp patch/patch_crud/templates/* vendor/symfony/maker-bundle/src/Resources/skeleton/crud/templates/.", "cp patch/patch_crud/Controller.tpl.php vendor/symfony/maker-bundle/src/Resources/skeleton/crud/controller/.", "cp patch/patch_crud/Type.tpl.php vendor/symfony/maker-bundle/src/Resources/skeleton/form/.", "cp patch/patch_crud/EntityDetails.php vendor/symfony/maker-bundle/src/Doctrine/.", "cp patch/patch_crud/MakeCrud.php vendor/symfony/maker-bundle/src/Maker/."
+
+        ],
         "post-install-cmd": [
-            "@auto-scripts"
+            [
+                "@patch",
+                "@auto-scripts"
+            ]
         ],
         "post-update-cmd": [
+            "@patch",
             "@auto-scripts"
         ]
     },
@@ -91,7 +102,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "5.2.*"
         }
     }

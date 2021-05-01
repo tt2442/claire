@@ -1,0 +1,32 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Voir User 
+{% endblock %}
+{% block body %} <h1>Voir User </h1>
+<div class='table-responsive'>
+    <table class='table'>{% if 'ROLE_SUPER_ADMIN' not in user.roles %}
+<tr>
+<th>Email</th>
+<td>{{user.email}}</td>
+</tr>
+<tr>
+<th>Roles</th>
+<td>{{user.roles ? user.roles|json_encode : ''}}</td>
+</tr>
+<tr>
+<th>Password</th>
+<td>{{user.password}}</td>
+</tr><td>
+    <form method='post' action="{{ path('user_delete', {'id':  user.id }) }}" onsubmit="return confirm('Etes-vous sûr de vouloir effacer cet item?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  user . id ) }}">
+        <a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('user_copy', {'id':  user.id }) }}">Dupliquer</a>
+        <a href='{{ path('user_index') }}'><button class='btn btn-secondary mr-2' type='button'>Revenir à la liste</button></a>
+        <button class="btn btn-xs btn-warning ">Supprimer</button>
+    </form>
+    </tr>
+    </tbody>
+    </table>
+    </div><a href="{{ path('user_new') }}"><button class="btn btn-secondary" type="button">Ajouter</button></a>
+
+{{ include('user/_delete_form.html.twig') }}
+    {% endblock %}
